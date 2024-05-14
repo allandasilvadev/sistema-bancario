@@ -105,19 +105,29 @@ Saldo:   {saldo:.2f}
 
             if valor > 0: 
                 if saldo >= valor:
-                    # subtrai o valor ao saldo      
-                    saldo -= valor
+                    # verifica se o valor a ser sacado supera o limite definido.
+                    if valor > limite:
+                        os.system('cls' if os.name == 'nt' else 'clear')            
+                        print("\n")
+                        print("  Erro  ".center(50,"="))
+                        print(f"O valor a ser sacado é maior que o seu limite.")
+                        print(f"Limite por saque: R$ {limite:.2f}")
+                        print(f"O valor que você deseja sacar: R$ {valor:.2f}")
+                        print(separador)
+                    else:
+                        # subtrai o valor ao saldo      
+                        saldo -= valor
 
-                    # incrementa o numero de saques
-                    numero_saques += 1
+                        # incrementa o numero de saques
+                        numero_saques += 1
 
-                    # limpa o terminal
-                    os.system('cls' if os.name == 'nt' else 'clear')
+                        # limpa o terminal
+                        os.system('cls' if os.name == 'nt' else 'clear')
 
-                    print("\n")
-                    print("  Sucesso  ".center(50,"="))
-                    print(f"O valor de R$ {valor:.2f} foi sacado de sua conta.".format(valor=str(valor)))
-                    print(separador)
+                        print("\n")
+                        print("  Sucesso  ".center(50,"="))
+                        print(f"O valor de R$ {valor:.2f} foi sacado de sua conta.".format(valor=str(valor)))
+                        print(separador)
                 else:
                     os.system('cls' if os.name == 'nt' else 'clear')            
                     print("\n")
