@@ -25,6 +25,8 @@ LIMITE_SAQUES = 3
 
 separador = "=" * 50
 
+operacoes = []
+
 while True:
     menu = f"""
 {separador}
@@ -72,6 +74,16 @@ Saldo:   {saldo:.2f}
             print("  Sucesso  ".center(50,"="))
             print(f"O valor de R$ {valor:.2f} foi depositado em sua conta.".format(valor=str(valor)))
             print(separador)
+
+
+            operacoes.append({
+                "operacao": "deposito",
+                "status": "sucesso",
+                "usuario": USUARIOS["0003"],
+                "data_operacao": data_atual,
+                "valor": valor,
+                "saldo": saldo
+            })            
 
         else:
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -128,6 +140,16 @@ Saldo:   {saldo:.2f}
                         print("  Sucesso  ".center(50,"="))
                         print(f"O valor de R$ {valor:.2f} foi sacado de sua conta.".format(valor=str(valor)))
                         print(separador)
+
+
+                        operacoes.append({
+                            "operacao": "saque",
+                            "status": "sucesso",
+                            "usuario": USUARIOS["0003"],
+                            "data_operacao": data_atual,
+                            "valor": valor,
+                            "saldo": saldo
+                        })    
                 else:
                     os.system('cls' if os.name == 'nt' else 'clear')            
                     print("\n")
@@ -146,7 +168,30 @@ Saldo:   {saldo:.2f}
     
     elif opcao == "e":
         # extrato
-        ...
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(" Visualizar operações ".center(50,"="))
+        print("Responsável: {usuario}".format(usuario=USUARIOS["0003"]))
+        print("Operação: Extrato")
+        print( f"Data: {data_atual}".format(data_atual) )
+
+        response = ""
+
+        if not operacoes:
+            response += "Ainda não há operações, a serem exibidas."
+        else:
+            for operacao in operacoes:
+                response += separador
+                response += "\n"
+                response += f"Operação: {operacao["operacao"]}\n"
+                response += f"Status: {operacao["status"]}\n"
+                response += f"Usuário: {operacao["usuario"]}\n"
+                response += f"Data operação: {operacao["data_operacao"]}\n"
+                response += f"Valor da operação: R$ {operacao["valor"]:.2f}\n"
+                response += f"Saldo disponível após a operação: R$ {operacao["saldo"]:.2f}\n"
+                response += separador
+                response += "\n"
+
+        print(response)
     
     elif opcao == "q":
         break
