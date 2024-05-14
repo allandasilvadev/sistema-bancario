@@ -84,7 +84,43 @@ Saldo:   {saldo:.2f}
     
     elif opcao == "s":
         # sacar
-        ...
+
+        # limpa o terminal
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(" Sacar ".center(50,"="))
+        print("Responsável: {usuario}".format(usuario=USUARIOS["0003"]))
+        print("Operação: Saque")
+        print( f"Data: {data_atual}".format(data_atual) )
+        valor = input("Valor: ")
+        valor = float(valor)
+
+        if valor > 0: 
+            if saldo >= valor:
+                # subtrai o valor ao saldo      
+                saldo -= valor
+
+                # limpa o terminal
+                os.system('cls' if os.name == 'nt' else 'clear')
+
+                print("\n")
+                print("  Sucesso  ".center(50,"="))
+                print(f"O valor de R$ {valor:.2f} foi sacado de sua conta.".format(valor=str(valor)))
+                print(separador)
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')            
+                print("\n")
+                print("  Erro  ".center(50,"="))
+                print(f"O valor o ser sacado deve ser menor ou igual ao saldo que você tem disponivel.")
+                print(f"Seu saldo atual é: {saldo:.2f}".format(saldo))
+                print(f"E o valor que você deseja sacar é: {valor:.2f}".format(valor))
+                print(separador)    
+        else:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            
+            print("\n")
+            print("  Erro  ".center(50,"="))
+            print(f"O valor o ser sacado deve ser maior que 0.")
+            print(separador)
     
     elif opcao == "e":
         # extrato
